@@ -56,6 +56,7 @@ const LoginPage = () => {
                 .auth()
                 .signInWithEmailAndPassword(email, pass)
                 .then(function (firebaseUser) {
+                  console.log(firebaseUser.user);
                   window.location.href = "/";
                 })
                 .catch(function (error) {
@@ -73,7 +74,30 @@ const LoginPage = () => {
           >
             Log in
           </Button>
-          <Button variant="solid" colorScheme="messenger">
+          <Button
+            variant="solid"
+            colorScheme="messenger"
+            onClick={() => {
+              var provider = new firebase.auth.GithubAuthProvider();
+              firebase
+                .auth()
+                .signInWithPopup(provider)
+                .then(function (firebaseUser) {
+                  console.log(firebaseUser.user);
+                  window.location.href = "/";
+                })
+                .catch(function (error) {
+                  const message = error.message;
+                  toast({
+                    title: "An error occurred.",
+                    description: message,
+                    status: "error",
+                    duration: 9000,
+                    isClosable: true,
+                  });
+                });
+            }}
+          >
             Login with GitHub
           </Button>
         </Flex>
