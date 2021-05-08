@@ -16,6 +16,7 @@ import { FaArrowAltCircleRight } from "react-icons/fa";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
+import { GetServerSideProps } from "next";
 const Chat = () => {
   const dummy = useRef<HTMLSpanElement>(null);
   const [chatText, setchatText] = useState("");
@@ -109,7 +110,7 @@ const Chat = () => {
   );
 };
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
   try {
     const cookies = nookies.get(context);
     const token = await verifyIdToken(cookies.token);
@@ -119,8 +120,8 @@ export async function getServerSideProps(context: any) {
     };
   } catch (err) {
     context.res.writeHead(302, { Location: "/login" });
-    // context.res.end();
+    context.res.end();
     return { props: {} };
   }
-}
+};
 export default Chat;

@@ -1,3 +1,4 @@
+import nookies from "nookies";
 import {
   Button,
   Flex,
@@ -7,14 +8,22 @@ import {
   InputLeftElement,
   Text,
   Spacer,
+  cookieStorageManager,
 } from "@chakra-ui/react";
 import firebase from "firebase";
 import React from "react";
-import { FaFacebookMessenger, FaSearch, FaUser } from "react-icons/fa";
-import { AiOutlineMore } from "react-icons/ai";
+import {
+  FaFacebookMessenger,
+  FaSearch,
+  FaUser,
+  FaWindows,
+} from "react-icons/fa";
+import { AiOutlineLogout, AiOutlineMore } from "react-icons/ai";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Chat from "./Chat";
+import router from "next/router";
+import { Cookies, CookiesProvider } from "react-cookie/es6";
 export default function Sidebar() {
   const roomRef = firebase.firestore().collection("SafeChatRooms");
   const [user] = useAuthState(firebase.auth());
@@ -38,7 +47,13 @@ export default function Sidebar() {
         <IconButton
           aria-label="new"
           margin="5px"
-          icon={<FaFacebookMessenger></FaFacebookMessenger>}
+          onClick={async () => {
+            await firebase.auth().signOut();
+            document.cookie =
+              "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+            router.replace("/");
+          }}
+          icon={<AiOutlineLogout></AiOutlineLogout>}
         ></IconButton>
         <IconButton
           margin="5px"

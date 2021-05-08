@@ -19,7 +19,7 @@ const IndexPage = () => (
       <Heading>SafeChat</Heading>
       <Text>World's Safest Messenger</Text>
       <Button colorScheme="messenger">
-        <Link href="/chat">Start Chatting</Link>
+        <Link href="/rooms">Start Chatting</Link>
       </Button>
     </Flex>
   </>
