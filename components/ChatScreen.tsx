@@ -1,18 +1,120 @@
-import { Center } from "@chakra-ui/react";
-import { useEffect } from "react";
-import { Message } from "../interfaces/message";
+import {
+  Center,
+  Text,
+  Heading,
+  Button,
+  Flex,
+  Icon,
+  Box,
+  Spacer,
+  IconButton,
+  Input,
+} from "@chakra-ui/react";
+import React, { useEffect, useRef } from "react";
 import { Room } from "../interfaces/Room";
+import firebase from "firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollection } from "react-firebase-hooks/firestore";
+import Head from "next/head";
+import { FaPhone, FaVideo } from "react-icons/fa";
+import Message from "./Message";
+import { useState } from "react";
+import { FormEvent } from "react";
 
-interface ChatScreenProps {
-  roomDetails: Room;
-  messages: Message[];
-}
-const ChatScreen = ({ roomDetails, messages }: ChatScreenProps) => {
+const ChatScreen = ({ roomDetails, messages }: any) => {
+  const [user] = useAuthState(firebase.auth());
+  const parsed = JSON.parse(roomDetails).room;
+  const [textMessage, settextMessage] = useState("");
+  const room: Room = {
+    id: parsed.id,
+    title: parsed.title,
+    createdBy: parsed.createdBy,
+    description: parsed.description,
+    timeStamp: parsed.timeStamp,
+    roomIcon: parsed.roomIcon,
+  };
+  const dummy = useRef<HTMLSpanElement>(null);
+  const msgRef = firebase
+    .firestore()
+    .collection("SafeChatRooms")
+    .doc(room.id)
+    .collection("messages");
+  const [msgsFromDb] = useCollection(msgRef.orderBy("timestamp", "asc"));
+  const msgprop = JSON.parse(messages);
+  const createTestMessage = async (e: FormEvent) => {
+    e.preventDefault();
+    if (textMessage.length > 0) {
+      await msgRef.add({
+        text: textMessage,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        sentBy: user?.uid,
+      });
+      dummy.current?.scrollIntoView({ behavior: "smooth" });
+      settextMessage("");
+    }
+  };
+  console.log(msgsFromDb?.docs.map((d) => d.data()));
+  const showMessages = () => {
+    if (msgsFromDb && user) {
+      return msgsFromDb.docs.map((msgd) => {
+        console.log(msgd.data);
+        return <Message key={msgd.id} message={msgd.data()}></Message>;
+      });
+    } else {
+      return <Message message={messages}></Message>;
+    }
+  };
   return (
     <>
-      <Center>Hello</Center>
-      <Center>{roomDetails}</Center>
-      <h1> {roomDetails.id}</h1>
+      <Head>Chat</Head>
+      <Flex direction="column" flex={1} height="100vh">
+        <Flex>
+          <Box
+            width="100%"
+            backgroundColor="gray.300"
+            position="sticky"
+            flex={1}
+          >
+            <Flex alignItems="center" justifyContent="space-between">
+              <Icon></Icon>
+              <Heading>{room.title}</Heading>
+              <Spacer></Spacer>
+              <IconButton
+                aria-label="call"
+                icon={<FaPhone></FaPhone>}
+              ></IconButton>
+              <IconButton
+                aria-label="call"
+                icon={<FaVideo></FaVideo>}
+              ></IconButton>
+            </Flex>
+          </Box>
+        </Flex>
+
+        <Box flex="1" padding="20px" overflowY="scroll">
+          <Flex direction="column">
+            {showMessages()}
+            <span ref={dummy}></span>
+          </Flex>
+        </Box>
+        <form onSubmit={createTestMessage}>
+          <Flex>
+            <Input
+              value={textMessage}
+              onChange={(e) => settextMessage(e.target.value)}
+              placeholder="Type Your Message Here"
+            />
+            <Button
+              type="submit"
+              justifySelf="flex-end"
+              colorScheme="messenger"
+              // onClick={createTestMessage}
+            >
+              Send
+            </Button>
+          </Flex>
+        </form>
+      </Flex>
     </>
   );
 };

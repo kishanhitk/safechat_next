@@ -15,22 +15,20 @@ interface RoomPageProps {
   roomDetails: Room;
   messages: Message[];
 }
-function RoomPage({
-  messages,
-  roomDetails,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // useEffect(() => {
-  //   const msg = JSON.parse(messages!);
-  //   JSON.parse(roomDetails!);
-  //   roomData = {
-  //     id: msg?.["id"],
-  //     title: msg?.["title"],
-  //     description: msg?.["description"],
-  //     timeStamp: msg?.["timeStamp"],
-  //     createdBy: msg?.["createdBy"],
-  //     roomIcon: msg?.["roomIcon"],
-  //   };
-  // }, []);
+function RoomPage({ messages, roomDetails }: any) {
+  var roomData;
+  useEffect(() => {
+    const msg = JSON.parse(messages!);
+    JSON.parse(roomDetails!);
+    roomData = {
+      id: msg?.["id"],
+      title: msg?.["title"],
+      description: msg?.["description"],
+      timeStamp: msg?.["timeStamp"],
+      createdBy: msg?.["createdBy"],
+      roomIcon: msg?.["roomIcon"],
+    };
+  }, []);
   return (
     <>
       <Flex>
@@ -44,9 +42,7 @@ function RoomPage({
     </>
   );
 }
-export const getServerSideProps: GetServerSideProps<RoomPageProps> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   var roomData: Room | null = null;
   var messageList: Message[] | null = null;
   if (context.query.id && typeof context.query.id === "string") {
@@ -66,16 +62,17 @@ export const getServerSideProps: GetServerSideProps<RoomPageProps> = async (
       id: roomDetails.id,
       title: roomDetails.data()?.["title"],
       description: roomDetails.data()?.["description"],
-      timeStamp: roomDetails.data()?.["timeStamp"] as Timestamp,
+      timeStamp: roomDetails.data()?.["timeStamp"],
       createdBy: roomDetails.data()?.["createdBy"],
       roomIcon: roomDetails.data()?.["roomIcon"],
     };
+    // const msgDatas = messages.docs.map();
     messageList = messages.docs.map((msg) => {
       const data = msg.data();
       var temp: Message = {
         id: msg.id,
         text: data["text"],
-        timeStamp: data["timestamp"],
+        timeStamp: data["timestamp"].toDate().getTime(),
         sentBy: data["sentBy"],
       };
       return temp;
@@ -83,8 +80,8 @@ export const getServerSideProps: GetServerSideProps<RoomPageProps> = async (
 
     return {
       props: {
-        messages: messageList! ?? JSON.stringify({ messages: messageList }),
-        roomDetails: roomData! ?? JSON.stringify({ room: roomData }),
+        messages: JSON.stringify({ messages: messageList }),
+        roomDetails: JSON.stringify({ room: roomData }),
       },
     };
   } else {
