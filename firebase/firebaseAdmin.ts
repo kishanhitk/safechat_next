@@ -1,10 +1,9 @@
 import admin from "firebase-admin";
-import serviceAccount from "../secret.json";
-
+import secret from "../admin";
 export const verifyIdToken = async (token: string) => {
   if (!admin.apps.length) {
     admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
+      credential: admin.credential.cert(secret.secret as admin.ServiceAccount),
       databaseURL: "https://bugsbyte-3a305.firebaseio.com",
     });
   }
