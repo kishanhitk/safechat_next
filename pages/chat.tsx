@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useRef, useState } from "react";
 import { verifyIdToken } from "../firebase/firebaseAdmin";
 import nookies from "nookies";
 import {
@@ -14,7 +15,9 @@ import firebase from "firebase";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
 const Chat = () => {
+  const dummy = useRef<HTMLSpanElement>(null);
   const [chatText, setchatText] = useState("");
   const messagesRef = firebase.firestore().collection("safechatmessages");
   const query = messagesRef.orderBy("createdAt").limit(25);
@@ -23,9 +26,10 @@ const Chat = () => {
   useEffect(() => {}, []);
   return (
     <>
+      <ColorModeSwitcher justifySelf="flex-end" textAlign="end" />
       <Flex direction="column" height="100vh">
-        <Flex justifyContent="space-between" p={10}>
-          <Heading>Chat Page</Heading>
+        <Flex justifyContent="space-between" p={5}>
+          <Heading>Safe Chat</Heading>
           <Button
             onClick={async () => {
               await firebase.auth().signOut();
@@ -34,68 +38,72 @@ const Chat = () => {
             Logout
           </Button>
         </Flex>
-        <Box rounded={3} backgroundColor="black.300" height="100vh" p={3} m={2}>
+        <Box
+          rounded={3}
+          backgroundColor="black.300"
+          height="100vh"
+          width="100%"
+          p={3}
+          m={2}
+          marginBottom={10}
+          overflowY="scroll"
+        >
           <Flex direction="column">
-            <Text textAlign="center" fontSize="xl">
-              Global Chat
-            </Text>
-            <Flex direction="column">
-              {messages &&
-                messages.map((msg) => (
-                  <Box
-                    p={2}
-                    m={3}
-                    rounded={19}
-                    maxWidth="30%"
-                    key={msg.id}
-                    backgroundColor="green"
-                    alignSelf={
-                      user?.uid === msg.createdBy ? "flex-end" : "flex-start"
-                    }
+            {messages &&
+              messages.map((msg) => (
+                <Box
+                  p={2}
+                  m={3}
+                  rounded={19}
+                  maxWidth="30%"
+                  key={msg.id}
+                  backgroundColor="green"
+                  alignSelf={
+                    user?.uid === msg.createdBy ? "flex-end" : "flex-start"
+                  }
+                >
+                  <Text
+                    paddingX={2}
+                    textAlign={user?.uid === msg.createdBy ? "right" : "left"}
                   >
-                    <Text
-                      paddingX={2}
-                      textAlign={user?.uid === msg.createdBy ? "right" : "left"}
-                    >
-                      {" "}
-                      {msg.text}
-                    </Text>
-                  </Box>
-                ))}
-            </Flex>
-            <Flex
-              width="80%"
-              align="end"
-              direction="row"
-              justifyContent="space-evenly"
-              bottom="0"
-              position="fixed"
-              alignContent="space-evenly"
-            >
-              <Input
-                autoFocus={true}
-                placeholder="Write your message"
-                value={chatText}
-                onChange={(e) => setchatText(e.target.value)}
-              ></Input>
-              <IconButton
-                onClick={async () => {
-                  await firebase
-                    .firestore()
-                    .collection("safechatmessages")
-                    .add({
-                      text: chatText,
-                      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                      createdBy: firebase.auth().currentUser?.uid,
-                    });
-                  setchatText("");
-                }}
-                aria-label="Send"
-                icon={<FaArrowAltCircleRight />}
-              ></IconButton>
-            </Flex>
+                    {" "}
+                    {msg.text}
+                  </Text>
+                </Box>
+              ))}
           </Flex>
+          <span ref={dummy}></span>
         </Box>
+        <Flex
+          width="80%"
+          align="end"
+          direction="row"
+          justifyContent="space-evenly"
+          bottom="0"
+          position="fixed"
+          alignContent="space-evenly"
+        >
+          <Input
+            autoFocus={true}
+            placeholder="Write your message"
+            value={chatText}
+            onChange={(e) => setchatText(e.target.value)}
+          ></Input>
+          <IconButton
+            onClick={async () => {
+              await firebase.firestore().collection("safechatmessages").add({
+                text: chatText,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                createdBy: firebase.auth().currentUser?.uid,
+              });
+              setchatText("");
+
+              dummy.current?.scrollIntoView({ behavior: "smooth" });
+            }}
+            aria-label="Send"
+            icon={<FaArrowAltCircleRight />}
+          ></IconButton>
+        </Flex>
       </Flex>
     </>
   );
@@ -111,7 +119,7 @@ export async function getServerSideProps(context: any) {
     };
   } catch (err) {
     context.res.writeHead(302, { Location: "/login" });
-    context.res.end();
+    // context.res.end();
     return { props: {} };
   }
 }

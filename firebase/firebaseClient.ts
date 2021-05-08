@@ -9,7 +9,6 @@ const FIREBASE_CONFIG = {
   appId: "1:339329728062:web:6e9dc2c8504ba0c179db6f",
   measurementId: "G-2CKGB32S3D",
 };
-
 export default function firebaseClient() {
   if (!firebase.apps.length) {
     firebase.initializeApp(FIREBASE_CONFIG);

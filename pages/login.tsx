@@ -47,7 +47,6 @@ const LoginPage = () => {
             minWidth="40%"
             variant="solid"
             loadingText="Loading"
-            variantColor="green"
             spinnerPlacement="start"
             isDisabled={email === "" || pass === ""}
             onClick={async () => {
