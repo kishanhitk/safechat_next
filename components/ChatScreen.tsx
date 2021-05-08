@@ -1,6 +1,4 @@
 import {
-  Center,
-  Text,
   Heading,
   Button,
   Flex,
@@ -10,7 +8,7 @@ import {
   IconButton,
   Input,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { Room } from "../interfaces/Room";
 import firebase from "firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -40,7 +38,6 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
     .doc(room.id)
     .collection("messages");
   const [msgsFromDb] = useCollection(msgRef.orderBy("timestamp", "asc"));
-  const msgprop = JSON.parse(messages);
   const createTestMessage = async (e: FormEvent) => {
     e.preventDefault();
     if (textMessage.length > 0) {

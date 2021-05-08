@@ -9,7 +9,6 @@ import {
 import firebase from "firebase";
 import React, { useState } from "react";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
-import Layout from "../components/Layout";
 
 const LoginPage = () => {
   const toast = useToast();

@@ -1,34 +1,12 @@
 import { Flex } from "@chakra-ui/react";
 import firebase from "firebase";
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from "next";
+import { GetServerSideProps } from "next";
 import React from "react";
-import { useEffect } from "react";
 import ChatScreen from "../../components/ChatScreen";
 import Sidebar from "../../components/Sidebar";
 import { Message } from "../../interfaces/message";
 import { Room } from "../../interfaces/Room";
-interface RoomPageProps {
-  roomDetails: Room;
-  messages: Message[];
-}
 function RoomPage({ messages, roomDetails }: any) {
-  var roomData;
-  useEffect(() => {
-    const msg = JSON.parse(messages!);
-    JSON.parse(roomDetails!);
-    roomData = {
-      id: msg?.["id"],
-      title: msg?.["title"],
-      description: msg?.["description"],
-      timeStamp: msg?.["timeStamp"],
-      createdBy: msg?.["createdBy"],
-      roomIcon: msg?.["roomIcon"],
-    };
-  }, []);
   return (
     <>
       <Flex>

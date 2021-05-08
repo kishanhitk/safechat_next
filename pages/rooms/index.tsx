@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 import nookies from "nookies";
-import { verifyIdToken } from "../firebase/firebaseAdmin";
+import { verifyIdToken } from "../../firebase/firebaseAdmin";
 
 function rooms() {
   return (

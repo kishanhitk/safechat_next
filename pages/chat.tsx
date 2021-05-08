@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { verifyIdToken } from "../firebase/firebaseAdmin";
 import nookies from "nookies";

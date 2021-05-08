@@ -1,4 +1,3 @@
-import nookies from "nookies";
 import {
   Button,
   Flex,
@@ -6,24 +5,19 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Text,
   Spacer,
-  cookieStorageManager,
 } from "@chakra-ui/react";
 import firebase from "firebase";
 import React from "react";
 import {
-  FaFacebookMessenger,
   FaSearch,
   FaUser,
-  FaWindows,
 } from "react-icons/fa";
 import { AiOutlineLogout, AiOutlineMore } from "react-icons/ai";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Chat from "./Chat";
 import router from "next/router";
-import { Cookies, CookiesProvider } from "react-cookie/es6";
 export default function Sidebar() {
   const roomRef = firebase.firestore().collection("SafeChatRooms");
   const [user] = useAuthState(firebase.auth());
