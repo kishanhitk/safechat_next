@@ -9,10 +9,7 @@ import {
 } from "@chakra-ui/react";
 import firebase from "firebase";
 import React from "react";
-import {
-  FaSearch,
-  FaUser,
-} from "react-icons/fa";
+import { FaSearch, FaUser } from "react-icons/fa";
 import { AiOutlineLogout, AiOutlineMore } from "react-icons/ai";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -29,7 +26,7 @@ export default function Sidebar() {
         title: name,
         description: "Test Room",
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        createdBy: user?.uid,
+        createdBy: user?.uid ?? "wgopUpNkOMTu6awwnWgPepNDILx2",
         roomIcon: `https://res.cloudinary.com/dtbudl0yx/image/fetch/w_2000,f_auto,q_auto,c_fit/https://adamtheautomator.com/wp-content/uploads/2019/12/group-1824145_1280-768x768.png`,
       });
   };
