@@ -4,9 +4,11 @@ import { GetServerSideProps } from "next";
 import React from "react";
 import ChatScreen from "../../components/ChatScreen";
 import Sidebar from "../../components/Sidebar";
+import firebaseClient from "../../firebase/firebaseClient";
 import { Message } from "../../interfaces/message";
 import { Room } from "../../interfaces/Room";
 function RoomPage({ messages, roomDetails }: any) {
+  firebaseClient();
   return (
     <>
       <Flex>
@@ -21,6 +23,7 @@ function RoomPage({ messages, roomDetails }: any) {
   );
 }
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  firebaseClient();
   var roomData: Room | null = null;
   var messageList: Message[] | null = null;
   if (context.query.id && typeof context.query.id === "string") {

@@ -44,7 +44,7 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
       await msgRef.add({
         text: textMessage,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        sentBy: user?.uid,
+        sentBy: user?.uid ?? "a",
       });
       dummy.current?.scrollIntoView({ behavior: "smooth" });
       settextMessage("");
@@ -52,12 +52,14 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
   };
   console.log(msgsFromDb?.docs.map((d) => d.data()));
   const showMessages = () => {
-    if (msgsFromDb && user) {
+    if (msgsFromDb) {
       return msgsFromDb.docs.map((msgd) => {
         console.log(msgd.data);
         return <Message key={msgd.id} message={msgd.data()}></Message>;
       });
     } else {
+      console.log("MESSAGE IS");
+      console.log(messages);
       return <Message message={messages}></Message>;
     }
   };
