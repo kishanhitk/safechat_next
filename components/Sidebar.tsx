@@ -9,10 +9,7 @@ import {
 } from "@chakra-ui/react";
 import firebase from "firebase";
 import React from "react";
-import {
-  FaSearch,
-  FaUser,
-} from "react-icons/fa";
+import { FaSearch, FaUser } from "react-icons/fa";
 import { AiOutlineLogout, AiOutlineMore } from "react-icons/ai";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -67,7 +64,12 @@ export default function Sidebar() {
       </Button>
       {roomSnapshot &&
         roomSnapshot?.docs.map((room) => (
-          <Chat key={room.id} id={room.id} name={room.data()["title"]}></Chat>
+          <Chat
+            key={room.id}
+            id={room.id}
+            icon={room.data()["roomIcon"]}
+            name={room.data()["title"]}
+          ></Chat>
         ))}
     </Flex>
   );
