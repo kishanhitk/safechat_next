@@ -12,6 +12,7 @@
     "@chakra-ui/react": "^1.6.0",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
+    "@fontsource/lato": "^4.3.0",
     "firebase": "^8.4.3",
     "firebase-admin": "^9.7.0",
     "framer-motion": "^4.1.11",

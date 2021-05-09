@@ -1094,6 +1094,11 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.4.1.tgz#600f2275ff54739ad5ac0102f1467b8963cd5f71"
   integrity sha512-0yPjzuzGMkW1GkrC8yWsiN7vt1OzkMIi9HgxRmKREZl2wnNPOKo/yScTjXf/O57HM8dltqxPF6jlNLFVtc2qdw==
 
+"@fontsource/lato@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/lato/-/lato-4.3.0.tgz#78710130f8bfccae41b637cf62d3c68bd1193cc1"
+  integrity sha512-/qm5j4mEjaOSOl7OI8Q2tzt/QDzDMYNDhSvJPiFqY/ClxYGtqt1nBW5DRHiZOirI/IWl0tX3adoILOBMz/cRWA==
+
 "@google-cloud/common@^3.6.0":
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-3.6.0.tgz#c2f6da5f79279a4a9ac7c71fc02d582beab98e8b"
