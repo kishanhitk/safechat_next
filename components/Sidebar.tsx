@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Button,
   Flex,
   IconButton,
@@ -15,6 +16,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Chat from "./Chat";
 import router from "next/router";
+import { ColorModeSwitcher } from "./ColorModeSwitcher";
 export default function Sidebar() {
   const roomRef = firebase.firestore().collection("SafeChatRooms");
   const [user] = useAuthState(firebase.auth());
@@ -32,8 +34,13 @@ export default function Sidebar() {
   };
   return (
     <Flex direction="column">
-      <Flex justifyContent="space-between" position="sticky" margin="5px">
-        <FaUser cursor="pointer"></FaUser>
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
+        position="sticky"
+        margin="5px"
+      >
+        <Avatar m={3} size="sm"></Avatar>
         <Spacer></Spacer>
         <IconButton
           aria-label="new"
@@ -46,10 +53,11 @@ export default function Sidebar() {
           }}
           icon={<AiOutlineLogout></AiOutlineLogout>}
         ></IconButton>
+
         <IconButton
           margin="5px"
           aria-label="more"
-          icon={<AiOutlineMore></AiOutlineMore>}
+          icon={<ColorModeSwitcher />}
         ></IconButton>
       </Flex>
       <InputGroup>

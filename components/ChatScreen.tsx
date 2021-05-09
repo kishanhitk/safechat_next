@@ -14,7 +14,7 @@ import firebase from "firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import Head from "next/head";
-import { FaPhone, FaVideo } from "react-icons/fa";
+import { FaPhone, FaPiedPiper, FaVideo } from "react-icons/fa";
 import Message from "./Message";
 import { useState } from "react";
 import { FormEvent } from "react";
@@ -75,14 +75,17 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
             flex={1}
           >
             <Flex alignItems="center" justifyContent="space-between">
-              <Icon></Icon>
-              <Heading>{room.title}</Heading>
+              <Box width="5"> </Box>
+              <FaPiedPiper fontSize={30}></FaPiedPiper>
+              <Heading marginLeft="5">{room.title}</Heading>
               <Spacer></Spacer>
               <IconButton
+                margin={3}
                 aria-label="call"
                 icon={<FaPhone></FaPhone>}
               ></IconButton>
               <IconButton
+                margin={3}
                 aria-label="call"
                 icon={<FaVideo></FaVideo>}
               ></IconButton>
@@ -97,13 +100,15 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
           </Flex>
         </Box>
         <form onSubmit={createTestMessage}>
-          <Flex>
+          <Flex margin={5} alignItems="center">
             <Input
+              required={true}
               value={textMessage}
               onChange={(e) => settextMessage(e.target.value)}
               placeholder="Type Your Message Here"
             />
             <Button
+              m={2}
               type="submit"
               justifySelf="flex-end"
               colorScheme="messenger"
