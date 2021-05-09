@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react";
 import firebase from "firebase";
 import React from "react";
-import { FaSearch, FaUser } from "react-icons/fa";
-import { AiOutlineLogout, AiOutlineMore } from "react-icons/ai";
+import { FaSearch } from "react-icons/fa";
+import { AiOutlineLogout } from "react-icons/ai";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Chat from "./Chat";

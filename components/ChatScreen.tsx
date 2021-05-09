@@ -2,7 +2,6 @@ import {
   Heading,
   Button,
   Flex,
-  Icon,
   Box,
   Spacer,
   IconButton,
