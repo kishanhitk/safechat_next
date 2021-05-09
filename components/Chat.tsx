@@ -1,7 +1,6 @@
 import { Avatar, Button, Flex, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
-import { FaInfoCircle } from "react-icons/fa";
 
 interface IChatProps {
   id: string;
