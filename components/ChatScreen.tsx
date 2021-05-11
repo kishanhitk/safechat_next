@@ -58,8 +58,12 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
       });
     } else {
       console.log("MESSAGE IS");
-      console.log(messages);
-      return <Message message={messages}></Message>;
+      const msgData = JSON.parse(messages)["messages"];
+      console.log(JSON.parse(messages)["messages"]);
+      return msgData.map((msgd: any) => {
+        console.log(msgd.data);
+        return <Message key={msgd.id} message={msgd}></Message>;
+      });
     }
   };
   return (
@@ -111,7 +115,6 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
               type="submit"
               justifySelf="flex-end"
               colorScheme="messenger"
-              // onClick={createTestMessage}
             >
               Send
             </Button>

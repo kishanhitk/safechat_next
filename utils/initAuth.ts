@@ -5,7 +5,7 @@ const TWELVE_DAYS_IN_MS = 12 * 60 * 60 * 24 * 1000;
 const initAuth = () => {
   init({
     debug: false,
-    authPageURL: "/auth",
+    authPageURL: "/login",
     appPageURL: "/",
     loginAPIEndpoint: "/api/login",
     logoutAPIEndpoint: "/api/logout",
@@ -17,7 +17,7 @@ const initAuth = () => {
         // key as a secret in Vercel. See:
         // https://github.com/vercel/vercel/issues/749#issuecomment-707515089
         privateKey: process.env.FIREBASE_PRIVATE_KEY
-          ? JSON.parse(process.env.FIREBASE_PRIVATE_KEY)
+          ? JSON.parse(process.env.FIREBASE_PRIVATE_KEY)["private_key"]
           : undefined,
       },
       databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL!,
@@ -29,7 +29,7 @@ const initAuth = () => {
       projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
     },
     cookies: {
-      name: "ExampleApp",
+      name: "SafeChat",
       keys: [
         process.env.COOKIE_SECRET_CURRENT,
         process.env.COOKIE_SECRET_PREVIOUS,
