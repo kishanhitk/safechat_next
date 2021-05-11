@@ -1,5 +1,4 @@
 import { Flex } from "@chakra-ui/react";
-import { firestore } from "firebase-admin";
 import { GetServerSideProps } from "next";
 import { AuthAction, getFirebaseAdmin, withAuthUser } from "next-firebase-auth";
 import React from "react";
