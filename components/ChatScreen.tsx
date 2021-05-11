@@ -2,7 +2,6 @@ import {
   Heading,
   Button,
   Flex,
-  Icon,
   Box,
   Spacer,
   IconButton,
@@ -14,7 +13,7 @@ import firebase from "firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import Head from "next/head";
-import { FaPhone, FaVideo } from "react-icons/fa";
+import { FaPhone, FaPiedPiper, FaVideo } from "react-icons/fa";
 import Message from "./Message";
 import { useState } from "react";
 import { FormEvent } from "react";
@@ -44,7 +43,7 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
       await msgRef.add({
         text: textMessage,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        sentBy: user?.uid ?? "wgopUpNkOMTu6awwnWgPepNDILx2",
+        sentBy: user?.uid ?? "a",
       });
       dummy.current?.scrollIntoView({ behavior: "smooth" });
       settextMessage("");
@@ -58,7 +57,13 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
         return <Message key={msgd.id} message={msgd.data()}></Message>;
       });
     } else {
-      return <Message message={messages}></Message>;
+      console.log("MESSAGE IS");
+      const msgData = JSON.parse(messages)["messages"];
+      console.log(JSON.parse(messages)["messages"]);
+      return msgData.map((msgd: any) => {
+        console.log(msgd.data);
+        return <Message key={msgd.id} message={msgd}></Message>;
+      });
     }
   };
   return (
@@ -73,14 +78,17 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
             flex={1}
           >
             <Flex alignItems="center" justifyContent="space-between">
-              <Icon></Icon>
-              <Heading>{room.title}</Heading>
+              <Box width="5"> </Box>
+              <FaPiedPiper fontSize={30}></FaPiedPiper>
+              <Heading marginLeft="5">{room.title}</Heading>
               <Spacer></Spacer>
               <IconButton
+                margin={3}
                 aria-label="call"
                 icon={<FaPhone></FaPhone>}
               ></IconButton>
               <IconButton
+                margin={3}
                 aria-label="call"
                 icon={<FaVideo></FaVideo>}
               ></IconButton>
@@ -95,17 +103,18 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
           </Flex>
         </Box>
         <form onSubmit={createTestMessage}>
-          <Flex>
+          <Flex margin={5} alignItems="center">
             <Input
+              required={true}
               value={textMessage}
               onChange={(e) => settextMessage(e.target.value)}
               placeholder="Type Your Message Here"
             />
             <Button
+              m={2}
               type="submit"
               justifySelf="flex-end"
               colorScheme="messenger"
-              // onClick={createTestMessage}
             >
               Send
             </Button>

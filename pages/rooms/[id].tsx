@@ -1,12 +1,15 @@
 import { Flex } from "@chakra-ui/react";
-import firebase from "firebase";
 import { GetServerSideProps } from "next";
+import { AuthAction, getFirebaseAdmin, withAuthUser } from "next-firebase-auth";
 import React from "react";
 import ChatScreen from "../../components/ChatScreen";
 import Sidebar from "../../components/Sidebar";
+import firebaseClient from "../../firebase/firebaseClient";
 import { Message } from "../../interfaces/message";
 import { Room } from "../../interfaces/Room";
+
 function RoomPage({ messages, roomDetails }: any) {
+  firebaseClient();
   return (
     <>
       <Flex>
@@ -15,24 +18,23 @@ function RoomPage({ messages, roomDetails }: any) {
           messages={messages!}
           roomDetails={roomDetails!}
         ></ChatScreen>
-        {/* <Chat></Chat> */}
       </Flex>
     </>
   );
 }
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  firebaseClient();
   var roomData: Room | null = null;
   var messageList: Message[] | null = null;
   if (context.query.id && typeof context.query.id === "string") {
-    const messageRef = firebase
-      .firestore()
+    const db = getFirebaseAdmin().firestore();
+    const messageRef = db
       .collection("SafeChatRooms")
       .doc(context.query.id)
-      .collection("messages");
-    const roomRef = firebase
-      .firestore()
-      .collection("SafeChatRooms")
-      .doc(context.query.id);
+      .collection("messages")
+      .orderBy("timestamp", "asc");
+    const roomRef = db.collection("SafeChatRooms").doc(context.query.id);
     const messages = await messageRef.get();
     const roomDetails = await roomRef.get();
     console.log(roomDetails.data());
@@ -44,8 +46,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       createdBy: roomDetails.data()?.["createdBy"],
       roomIcon: roomDetails.data()?.["roomIcon"],
     };
-    // const msgDatas = messages.docs.map();
-    messageList = messages.docs.map((msg) => {
+    messageList = messages.docs.map((msg: any) => {
       const data = msg.data();
       var temp: Message = {
         id: msg.id,
@@ -64,10 +65,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   } else {
     return {
-      props: { messages: messageList!, roomDetails: roomData! },
+      props: {},
       redirect: "/",
     };
   }
 };
 
-export default RoomPage;
+export default withAuthUser({
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+})(RoomPage);

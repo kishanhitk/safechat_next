@@ -7,6 +7,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import firebase from "firebase";
+import { AuthAction, withAuthUser } from "next-firebase-auth";
 import React, { useState } from "react";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
 
@@ -81,7 +82,7 @@ const LoginPage = () => {
               .signInWithPopup(provider)
               .then(function (firebaseUser) {
                 console.log(firebaseUser.user);
-                window.location.href = "/";
+                // window.location.href = "/";
               })
               .catch(function (error) {
                 const message = error.message;
@@ -101,5 +102,11 @@ const LoginPage = () => {
     </Flex>
   );
 };
-
-export default LoginPage;
+const MyLoader = () => <div>Loading...</div>;
+// export default LoginPage;
+export default withAuthUser({
+  whenAuthed: AuthAction.REDIRECT_TO_APP,
+  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
+  whenUnauthedAfterInit: AuthAction.RENDER,
+  LoaderComponent: MyLoader,
+})(LoginPage);

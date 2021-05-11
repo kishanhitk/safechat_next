@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Button,
   Flex,
   IconButton,
@@ -9,12 +10,13 @@ import {
 } from "@chakra-ui/react";
 import firebase from "firebase";
 import React from "react";
-import { FaSearch, FaUser } from "react-icons/fa";
-import { AiOutlineLogout, AiOutlineMore } from "react-icons/ai";
+import { FaSearch } from "react-icons/fa";
+import { AiOutlineLogout } from "react-icons/ai";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Chat from "./Chat";
 import router from "next/router";
+import { ColorModeSwitcher } from "./ColorModeSwitcher";
 export default function Sidebar() {
   const roomRef = firebase.firestore().collection("SafeChatRooms");
   const [user] = useAuthState(firebase.auth());
@@ -26,14 +28,19 @@ export default function Sidebar() {
         title: name,
         description: "Test Room",
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        createdBy: user?.uid ?? "wgopUpNkOMTu6awwnWgPepNDILx2",
+        createdBy: user?.uid,
         roomIcon: `https://res.cloudinary.com/dtbudl0yx/image/fetch/w_2000,f_auto,q_auto,c_fit/https://adamtheautomator.com/wp-content/uploads/2019/12/group-1824145_1280-768x768.png`,
       });
   };
   return (
     <Flex direction="column">
-      <Flex justifyContent="space-between" position="sticky" margin="5px">
-        <FaUser cursor="pointer"></FaUser>
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
+        position="sticky"
+        margin="5px"
+      >
+        <Avatar m={3} size="sm"></Avatar>
         <Spacer></Spacer>
         <IconButton
           aria-label="new"
@@ -46,10 +53,11 @@ export default function Sidebar() {
           }}
           icon={<AiOutlineLogout></AiOutlineLogout>}
         ></IconButton>
+
         <IconButton
           margin="5px"
           aria-label="more"
-          icon={<AiOutlineMore></AiOutlineMore>}
+          icon={<ColorModeSwitcher />}
         ></IconButton>
       </Flex>
       <InputGroup>
@@ -64,7 +72,12 @@ export default function Sidebar() {
       </Button>
       {roomSnapshot &&
         roomSnapshot?.docs.map((room) => (
-          <Chat key={room.id} id={room.id} name={room.data()["title"]}></Chat>
+          <Chat
+            key={room.id}
+            id={room.id}
+            icon={room.data()["roomIcon"]}
+            name={room.data()["title"]}
+          ></Chat>
         ))}
     </Flex>
   );

@@ -1,7 +1,8 @@
 import { ChakraProvider, theme } from "@chakra-ui/react";
 import { AuthProvider } from "../firebase/auth";
 import firebaseClient from "../firebase/firebaseClient";
-
+import initAuth from "../utils/initAuth";
+initAuth();
 function MyApp({ Component, pageProps }: any) {
   firebaseClient();
   return (

@@ -13,7 +13,7 @@ function Message({ message }: MessageProps) {
       <Box
         m={5}
         rounded={5}
-        backgroundColor="green.100"
+        backgroundColor={!IsByMe ? "green.100" : "blue.100"}
         alignSelf={!IsByMe ? "flex-start" : "flex-end"}
       >
         <Text p={5}> {message["text"]}</Text>
