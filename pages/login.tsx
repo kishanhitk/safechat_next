@@ -103,7 +103,6 @@ const LoginPage = () => {
   );
 };
 const MyLoader = () => <div>Loading...</div>;
-// export default LoginPage;
 export default withAuthUser({
   whenAuthed: AuthAction.REDIRECT_TO_APP,
   whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
