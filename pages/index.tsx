@@ -25,7 +25,6 @@ const IndexPage = () => (
         <Button m={10} colorScheme="messenger">
           <Link href="/rooms">Start Chatting</Link>
         </Button>
-        <Link href="/demo">Demo</Link>
       </Flex>
     </Flex>
   </>
