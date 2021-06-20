@@ -6,7 +6,6 @@ import {
 } from "next-firebase-auth";
 import React from "react";
 import {
-  Box,
   Text,
   Heading,
   HStack,
