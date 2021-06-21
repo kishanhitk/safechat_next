@@ -8,6 +8,7 @@ interface IChatProps {
   icon: string;
 }
 function Chat({ id, name, icon }: IChatProps) {
+  console.log(icon);
   return (
     <Link href={`/rooms/${id}`} passHref>
       <Button
@@ -17,7 +18,7 @@ function Chat({ id, name, icon }: IChatProps) {
         justifyContent="flex-start"
       >
         <Flex alignItems="center">
-          <Avatar size="xs" name={name} src={icon}></Avatar>
+          <Avatar size="xs" name={name}></Avatar>
           <Text m={3}>{name}</Text>
         </Flex>
       </Button>

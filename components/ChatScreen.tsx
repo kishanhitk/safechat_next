@@ -6,6 +6,8 @@ import {
   Spacer,
   IconButton,
   Input,
+  useColorModeValue,
+  Avatar,
 } from "@chakra-ui/react";
 import React, { useRef } from "react";
 import { Room } from "../interfaces/Room";
@@ -13,7 +15,7 @@ import firebase from "firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import Head from "next/head";
-import { FaPhone, FaPiedPiper, FaVideo } from "react-icons/fa";
+import { FaPhone, FaVideo } from "react-icons/fa";
 import Message from "./Message";
 import { useState } from "react";
 import { FormEvent } from "react";
@@ -36,6 +38,7 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
     .collection("SafeChatRooms")
     .doc(room.id)
     .collection("messages");
+  const headerBg = useColorModeValue("gray.100", "gray.700");
   const [msgsFromDb] = useCollection(msgRef.orderBy("timestamp", "asc"));
   const createTestMessage = async (e: FormEvent) => {
     e.preventDefault();
@@ -64,6 +67,7 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
         console.log(msgd.data);
         return <Message key={msgd.id} message={msgd}></Message>;
       });
+      dummy.current?.scrollIntoView({ behavior: "smooth" });
     }
   };
   return (
@@ -73,21 +77,24 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
         <Flex>
           <Box
             width="100%"
-            backgroundColor="gray.300"
+            backgroundColor={headerBg}
             position="sticky"
             flex={1}
           >
             <Flex alignItems="center" justifyContent="space-between">
-              <Box width="5"> </Box>
-              <FaPiedPiper fontSize={30}></FaPiedPiper>
-              <Heading marginLeft="5">{room.title}</Heading>
+              <Avatar ml={5} name={room.title}></Avatar>
+              <Heading ml={5} fontWeight="medium">
+                {room.title}
+              </Heading>
               <Spacer></Spacer>
               <IconButton
+                rounded="10px"
                 margin={3}
                 aria-label="call"
                 icon={<FaPhone></FaPhone>}
               ></IconButton>
               <IconButton
+                rounded="10px"
                 margin={3}
                 aria-label="call"
                 icon={<FaVideo></FaVideo>}
@@ -99,6 +106,7 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
         <Box flex="1" padding="20px" overflowY="scroll">
           <Flex direction="column">
             {showMessages()}
+
             <span ref={dummy}></span>
           </Flex>
         </Box>

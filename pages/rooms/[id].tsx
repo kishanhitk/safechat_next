@@ -1,6 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import { AuthAction, getFirebaseAdmin, withAuthUser } from "next-firebase-auth";
+import Head from "next/head";
 import React from "react";
 import ChatScreen from "../../components/ChatScreen";
 import Sidebar from "../../components/Sidebar";
@@ -10,8 +11,16 @@ import { Room } from "../../interfaces/Room";
 
 function RoomPage({ messages, roomDetails }: any) {
   firebaseClient();
+  console.log("ROOM DETAILS IS");
+  const title = JSON.parse(roomDetails).room.title;
+  console.log(JSON.parse(roomDetails).room.title);
   return (
     <>
+      <Head>
+        <title>{title} - SafeChat</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Flex>
         <Sidebar></Sidebar>
         <ChatScreen
@@ -37,7 +46,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const roomRef = db.collection("SafeChatRooms").doc(context.query.id);
     const messages = await messageRef.get();
     const roomDetails = await roomRef.get();
-    console.log(roomDetails.data());
     roomData = {
       id: roomDetails.id,
       title: roomDetails.data()?.["title"],
