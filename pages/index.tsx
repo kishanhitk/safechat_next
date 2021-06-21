@@ -70,9 +70,6 @@ const IndexPage = () => {
                 .signInWithEmailAndPassword(email, pass)
                 .then(function (firebaseUser) {
                   console.log(firebaseUser.user);
-                  // router.push("/rooms");
-
-                  // window.location.href = "/";
                 })
                 .catch(function (error) {
                   const message = error.message;

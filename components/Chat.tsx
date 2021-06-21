@@ -1,5 +1,4 @@
 import { Avatar, Button, Flex, Text } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import React from "react";
 
 interface IChatProps {
@@ -8,15 +7,12 @@ interface IChatProps {
   icon: string;
 }
 function Chat({ id, name, icon }: IChatProps) {
-  const router = useRouter();
-  const enterChat = () => {
-    router.push(`/rooms/${id}`);
-  };
   return (
     <Button
       m={1}
-      onClick={enterChat}
-      backgroundColor="gray.100"
+      as="a"
+      href={`/rooms/${id}`}
+      colorScheme="gray"
       border="none"
       justifyContent="flex-start"
     >
