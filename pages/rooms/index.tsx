@@ -1,10 +1,10 @@
+import React from "react";
 import Sidebar from "../../components/Sidebar";
 import {
   AuthAction,
   withAuthUser,
   withAuthUserTokenSSR,
 } from "next-firebase-auth";
-import React from "react";
 import {
   Text,
   Heading,
@@ -24,7 +24,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-function rooms() {
+function RoomPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <div>
@@ -73,4 +73,4 @@ export const getServerSideProps = withAuthUserTokenSSR()();
 export default withAuthUser({
   whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
   authPageURL: "/",
-})(rooms);
+})(RoomPage);

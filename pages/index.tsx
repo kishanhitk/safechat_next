@@ -37,7 +37,7 @@ const IndexPage = () => {
             SafeChat
           </Heading>
           <Text textAlign="center" mb={3}>
-            World's Safest Messenger
+            World&apos;s Safest Messenger
           </Text>{" "}
           <Input
             value={email}

@@ -61,10 +61,9 @@ export default function Sidebar() {
         ></IconButton>
       </Flex>
       <InputGroup>
-        <InputLeftElement
-          pointerEvents="none"
-          children={<FaSearch color="gray.300" />}
-        />
+        <InputLeftElement pointerEvents="none">
+          <FaSearch color="gray.300" />
+        </InputLeftElement>
         <Input type="text" placeholder="Search" />
       </InputGroup>
       <Button m={5} colorScheme="messenger" onClick={() => createNewRoom()}>

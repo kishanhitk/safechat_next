@@ -66,11 +66,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   } else {
     return {
       props: {},
-      redirect: "/",
+      redirect: "/rooms",
     };
   }
 };
 
 export default withAuthUser({
   whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+  authPageURL: "/",
 })(RoomPage);
