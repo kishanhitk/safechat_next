@@ -56,7 +56,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
       return temp;
     });
-
     return {
       props: {
         messages: JSON.stringify({ messages: messageList }),
