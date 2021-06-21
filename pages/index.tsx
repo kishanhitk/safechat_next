@@ -14,7 +14,6 @@ import { withAuthUser, AuthAction } from "next-firebase-auth";
 import Head from "next/dist/next-server/lib/head";
 import React, { useState } from "react";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
-
 const IndexPage = () => {
   const toast = useToast();
   const [email, setemail] = useState("user@test.com");

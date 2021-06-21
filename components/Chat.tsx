@@ -1,4 +1,5 @@
 import { Avatar, Button, Flex, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import React from "react";
 
 interface IChatProps {
@@ -8,19 +9,19 @@ interface IChatProps {
 }
 function Chat({ id, name, icon }: IChatProps) {
   return (
-    <Button
-      m={1}
-      as="a"
-      href={`/rooms/${id}`}
-      colorScheme="gray"
-      border="none"
-      justifyContent="flex-start"
-    >
-      <Flex alignItems="center">
-        <Avatar size="xs" name={name} src={icon}></Avatar>
-        <Text m={3}>{name}</Text>
-      </Flex>
-    </Button>
+    <Link href={`/rooms/${id}`} passHref>
+      <Button
+        m={1}
+        colorScheme="gray"
+        border="none"
+        justifyContent="flex-start"
+      >
+        <Flex alignItems="center">
+          <Avatar size="xs" name={name} src={icon}></Avatar>
+          <Text m={3}>{name}</Text>
+        </Flex>
+      </Button>
+    </Link>
   );
 }
 

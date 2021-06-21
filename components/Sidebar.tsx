@@ -56,6 +56,7 @@ export default function Sidebar() {
         <Avatar m={3} size="sm"></Avatar>
         <Spacer></Spacer>
         <IconButton
+          rounded="10px"
           aria-label="new"
           margin="5px"
           onClick={async () => {
@@ -68,6 +69,7 @@ export default function Sidebar() {
         ></IconButton>
 
         <IconButton
+          rounded="10px"
           margin="5px"
           aria-label="more"
           icon={<ColorModeSwitcher />}
