@@ -92,12 +92,7 @@ function RoomPage() {
                 </ModalBody>
 
                 <ModalFooter>
-                  <Button
-                    colorScheme="blue"
-                    mr={3}
-                    type="submit"
-                    // onClick={createNewRoom}
-                  >
+                  <Button colorScheme="blue" mr={3} type="submit">
                     Create
                   </Button>
                   <Button onClick={onClose}>Cancel</Button>
