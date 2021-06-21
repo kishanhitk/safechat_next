@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Flex,
   Heading,
@@ -6,6 +7,7 @@ import {
   Text,
   useColorModeValue,
   useToast,
+  VStack,
 } from "@chakra-ui/react";
 import firebase from "firebase";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
@@ -15,12 +17,12 @@ import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
 
 const IndexPage = () => {
   const toast = useToast();
-  const [email, setemail] = useState("");
-  const [pass, setpass] = useState("");
+  const [email, setemail] = useState("user@test.com");
+  const [pass, setpass] = useState("123456");
   const [isLoading, setLoading] = useState(false);
   const formBackground = useColorModeValue("gray.100", "gray.700");
   return (
-    <>
+    <Box backgroundColor="#4337c621">
       <Flex height="100vh" alignItems="center" justifyContent="center">
         <Head>
           <title>SafeChat</title>
@@ -31,8 +33,16 @@ const IndexPage = () => {
           />
         </Head>
 
-        <Flex direction="column" background={formBackground} p={12} rounded={6}>
-          <ColorModeSwitcher justifySelf="flex-end" />
+        <VStack
+          direction="column"
+          background={formBackground}
+          p={12}
+          rounded={10}
+          width="400px"
+          maxWidth="90%"
+          spacing={5}
+        >
+          <ColorModeSwitcher justifySelf="flex-start" />
           <Heading mb={4} textAlign="center">
             SafeChat
           </Heading>
@@ -42,7 +52,7 @@ const IndexPage = () => {
           <Input
             value={email}
             onChange={(e) => setemail(e.target.value)}
-            variant="filled"
+            variant="outline"
             type="email"
             placeholder="user@example.com"
             mb={3}
@@ -51,15 +61,15 @@ const IndexPage = () => {
             value={pass}
             onChange={(e) => setpass(e.target.value)}
             mb={3}
-            variant="filled"
+            variant="outline"
             type="password"
             placeholder="******"
           ></Input>
           <Button
-            mb={3}
             isLoading={isLoading}
-            minWidth="40%"
+            width="100%"
             variant="solid"
+            colorScheme="messenger"
             loadingText="Loading"
             spinnerPlacement="start"
             isDisabled={email === "" || pass === ""}
@@ -87,8 +97,10 @@ const IndexPage = () => {
             Log in
           </Button>
           <Button
+            mt="10px"
+            width="100%"
             variant="solid"
-            colorScheme="messenger"
+            colorScheme="gray"
             onClick={() => {
               var provider = new firebase.auth.GithubAuthProvider();
               firebase
@@ -111,9 +123,9 @@ const IndexPage = () => {
           >
             Login with GitHub
           </Button>
-        </Flex>
+        </VStack>
       </Flex>
-    </>
+    </Box>
   );
 };
 const MyLoader = () => <div>Loading...</div>;

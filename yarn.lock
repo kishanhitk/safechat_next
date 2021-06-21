@@ -4035,10 +4035,10 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-next-firebase-auth@^0.13.1-alpha.1:
-  version "0.13.1-alpha.1"
-  resolved "https://registry.yarnpkg.com/next-firebase-auth/-/next-firebase-auth-0.13.1-alpha.1.tgz#5e71858f9b7415eab59572d6117cb33496150d6d"
-  integrity sha512-Em2UFp1/jOJQbeBjS9oAyt0rA7l0mIDvuV9dq5iIAKoEXi9zXhyzEC7/youbzYjZfv9LC5Rp50FffppL3qv+Cw==
+next-firebase-auth@^0.13.1:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/next-firebase-auth/-/next-firebase-auth-0.13.1.tgz#f2d5a2f5f59a4361ac08e1ae3226fac5b789a238"
+  integrity sha512-77JFtsB63OYzfOVRV7Re/JLPSqPrGLY33CCRrp9dgcWB6RevYy671EpP50EOxLIeqmangERLnsgzgzhcvNExpA==
   dependencies:
     cookies "^0.8.0"
 

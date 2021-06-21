@@ -18,7 +18,7 @@
     "firebase-admin": "^9.9.0",
     "framer-motion": "^4.1.17",
     "next": "11.0.0",
-    "next-firebase-auth": "^0.13.1-alpha.1",
+    "next-firebase-auth": "^0.13.1",
     "nookies": "^2.5.2",
     "react": "^17.0.2",
     "react-cookie": "^4.0.3",
