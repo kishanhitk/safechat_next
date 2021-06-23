@@ -41,7 +41,7 @@ const IndexPage = () => {
           maxWidth="90%"
           spacing={5}
         >
-          <ColorModeSwitcher justifySelf="flex-start" />
+          <ColorModeSwitcher rounded="100%" justifySelf="flex-start" />
           <Heading mb={4} textAlign="center">
             SafeChat
           </Heading>
