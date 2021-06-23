@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import { AuthAction, getFirebaseAdmin, withAuthUser } from "next-firebase-auth";
 import Head from "next/head";
@@ -21,13 +21,16 @@ function RoomPage({ messages, roomDetails }: any) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Flex>
-        <Sidebar></Sidebar>
+      <HStack>
+        <Box display={{ base: "none", sm: "flex" }}>
+          <Sidebar></Sidebar>
+        </Box>
         <ChatScreen
+          flex="7"
           messages={messages!}
           roomDetails={roomDetails!}
         ></ChatScreen>
-      </Flex>
+      </HStack>
     </>
   );
 }

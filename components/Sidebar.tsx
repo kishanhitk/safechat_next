@@ -46,7 +46,7 @@ export default function Sidebar() {
     onClose();
   };
   return (
-    <Flex direction="column">
+    <Flex direction="column" flex="1">
       <Flex
         justifyContent="space-between"
         alignItems="center"

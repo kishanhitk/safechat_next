@@ -55,7 +55,12 @@ function RoomPage() {
       </Head>
       <HStack width="100vw">
         <Sidebar></Sidebar>
-        <VStack flex="1" spacing="5">
+        <VStack
+          flex="7"
+          justifyContent="center"
+          spacing="5"
+          display={{ base: "none", sm: "flex" }}
+        >
           <Heading alignSelf="center" justifySelf="center">
             Start Chatting
           </Heading>
