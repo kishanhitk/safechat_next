@@ -46,7 +46,7 @@ export default function Sidebar() {
     onClose();
   };
   return (
-    <Flex direction="column" flex="1">
+    <Flex direction="column" flex="1" height="100vh">
       <Flex
         justifyContent="space-between"
         alignItems="center"
@@ -84,15 +84,17 @@ export default function Sidebar() {
       <Button m={5} colorScheme="messenger" onClick={onOpen}>
         New Room
       </Button>
-      {roomSnapshot &&
-        roomSnapshot?.docs.map((room) => (
-          <Chat
-            key={room.id}
-            id={room.id}
-            icon={room.data()["roomIcon"]}
-            name={room.data()["title"]}
-          ></Chat>
-        ))}{" "}
+      <Flex direction="column" overflowY="scroll">
+        {roomSnapshot &&
+          roomSnapshot?.docs.map((room) => (
+            <Chat
+              key={room.id}
+              id={room.id}
+              icon={room.data()["roomIcon"]}
+              name={room.data()["title"]}
+            ></Chat>
+          ))}{" "}
+      </Flex>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <form onSubmit={createNewRoom}>

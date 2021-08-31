@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import firebase from "firebase";
 import { withAuthUser, AuthAction } from "next-firebase-auth";
-import Head from "next/dist/next-server/lib/head";
+import Head from "next/head";
 import React, { useState } from "react";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
 const IndexPage = () => {
