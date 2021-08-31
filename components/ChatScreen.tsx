@@ -55,19 +55,21 @@ const ChatScreen = ({ roomDetails, messages }: any) => {
   console.log(msgsFromDb?.docs.map((d) => d.data()));
   const showMessages = () => {
     if (msgsFromDb) {
+      dummy.current?.scrollIntoView({ behavior: "smooth" });
       return msgsFromDb.docs.map((msgd) => {
         console.log(msgd.data);
+
         return <Message key={msgd.id} message={msgd.data()}></Message>;
       });
     } else {
       console.log("MESSAGE IS");
       const msgData = JSON.parse(messages)["messages"];
       console.log(JSON.parse(messages)["messages"]);
+      dummy.current?.scrollIntoView({ behavior: "smooth" });
       return msgData.map((msgd: any) => {
         console.log(msgd.data);
         return <Message key={msgd.id} message={msgd}></Message>;
       });
-      dummy.current?.scrollIntoView({ behavior: "smooth" });
     }
   };
   return (
